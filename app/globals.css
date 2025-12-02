@@ -1,0 +1,263 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Deep black background with purple accent for dark portfolio */
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --card: #121212;
+  --card-foreground: #ffffff;
+  --popover: #121212;
+  --popover-foreground: #ffffff;
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --secondary: #1e1e1e;
+  --secondary-foreground: #ffffff;
+  --muted: #1e1e1e;
+  --muted-foreground: #a1a1aa;
+  --accent: #27272a;
+  --accent-foreground: #ffffff;
+  --destructive: #7f1d1d;
+  --destructive-foreground: #ffffff;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #a855f7;
+  --chart-1: #a855f7;
+  --chart-2: #22c55e;
+  --chart-3: #eab308;
+  --chart-4: #3b82f6;
+  --chart-5: #ef4444;
+  --radius: 0.5rem;
+
+  /* Sidebar variables (required by shadcn) */
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.87 0 0);
+}
+
+.dark {
+  /* Dark theme colors matching reference portfolio */
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --card: #121212;
+  --card-foreground: #ffffff;
+  --popover: #121212;
+  --popover-foreground: #ffffff;
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --secondary: #1e1e1e;
+  --secondary-foreground: #ffffff;
+  --muted: #1e1e1e;
+  --muted-foreground: #a1a1aa;
+  --accent: #27272a;
+  --accent-foreground: #ffffff;
+  --destructive: #7f1d1d;
+  --destructive-foreground: #ffffff;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #a855f7;
+  --chart-1: #a855f7;
+  --chart-2: #22c55e;
+  --chart-3: #eab308;
+  --chart-4: #3b82f6;
+  --chart-5: #ef4444;
+
+  /* Sidebar variables (required by shadcn) */
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  /* Adding font variables for heading and script fonts */
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-heading);
+  --font-script: var(--font-script);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-[#0a0a0a];
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-zinc-800 rounded-full hover:bg-zinc-700 transition-colors;
+}
+
+/* Text stroke utilities for outlined text */
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+  color: transparent;
+}
+
+.text-stroke-purple {
+  -webkit-text-stroke: 1px rgba(168, 85, 247, 0.5);
+  color: transparent;
+}
+
+/* Rotating stamp animation for footer 'Get in touch' ring */
+
+@keyframes stamp-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.stamp-rotate {
+  /* slightly slower rotation for a relaxed feel */
+  animation: stamp-spin 12s linear infinite;
+  transform-origin: 100px 100px; /* matches SVG viewBox center */
+}
+
+.stamp-rotate:hover {
+  animation-play-state: paused;
+}
+
+.stamp-button { /* accessible focus + subtle transform on hover */
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+.stamp-button:focus-visible,
+.stamp-button:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* SVG text styling for the stamp's curved text */
+.stamp-text {
+  font-family: var(--font-script), Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 18px; /* increased font size for visibility */
+  letter-spacing: 1px;
+  fill: #ffffff;
+}
+
+/* Counter-rotation to keep inner elements visually upright while the ring spins */
+@keyframes stamp-counter-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+.stamp-counter-rotate {
+  animation: stamp-counter-spin 12s linear infinite;
+  transform-origin: 100px 100px;
+}
+
+/* small pulse to make the stamp feel alive */
+@keyframes stamp-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.stamp-pulse {
+  animation: stamp-pulse 3.5s ease-in-out infinite;
+}
+
+/* when hovering the button, pause the ring rotation and slightly scale the ring */
+.stamp-button:hover .stamp-rotate {
+  animation-play-state: paused;
+  transform-origin: 100px 100px;
+  transform: scale(1.03) rotate(0deg); /* keep rotation paused but slightly scaled */
+}
+
+/* HERO headline sizing + style */
+.hero-headline {
+  font-size: clamp(60px, 10vw, 200px); /* responsive scale */
+  line-height: 0.9;
+  margin: 0;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  pointer-events: none;
+  letter-spacing: -1px;
+}
+
+/* position the faded arrow near the right edge of the left column */
+.hero-arrow {
+  position: absolute;
+  right: -18px; /* nudges arrow toward center; adjust if needed */
+  top: 46%;
+  transform: translateY(-50%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* keep headline visually behind the content */
+.grid > .relative > .hero-headline,
+.grid > .relative > .hero-arrow {
+  z-index: 0;
+}
+
+/* ensure copy column sits above headline */
+.grid > .relative + .relative { z-index: 10; }
+
+/* if you use the tailwind-like grid used above, ensure these selectors match — 
+   alternative is to rely on the inline z-index in the JSX (we set z-10 on copy already) */
+
+/* tiny polish for headline on small screens */
+@media (max-width: 1024px) {
+  .hero-headline { font-size: clamp(48px, 14vw, 120px); }
+  .hero-arrow { display: none; }
+}
