@@ -1,30 +1,35 @@
 # Portfolio Design
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+This is a personal portfolio site built with Next.js and Tailwind CSS. It includes sections for a hero, about, resume, skills, projects, and contact.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/singhrajputneha896-gmailcoms-projects/v0-portfolio-design)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/la1i3Xad10r)
+## Features
 
-## Overview
+- Responsive portfolio layout
+- Downloadable resume (`public/pdf/NehaResumeOct.pdf`)
+- Contact form that posts to a server API (`/api/contact`)
+- Framer Motion animations and simple UI components
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+## Local Development
 
-## Deployment
+1. Install dependencies:
 
-Your project is live at:
+```powershell
+npm install
+```
 
-**[https://vercel.com/singhrajputneha896-gmailcoms-projects/v0-portfolio-design](https://vercel.com/singhrajputneha896-gmailcoms-projects/v0-portfolio-design)**
+2. Run the development server:
 
-## Build your app
+```powershell
+npm run dev
+```
 
-Continue building your app on:
+Open http://localhost:3000 in your browser.
 
-**[https://v0.app/chat/la1i3Xad10r](https://v0.app/chat/la1i3Xad10r)**
+## Notes
 
-## How It Works
+- The contact API uses Nodemailer and requires SMTP credentials set in `.env.local` (see `app/api/contact/route.ts`).
+- Keep sensitive credentials out of version control.
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+## License
+
+This repository is private. Update the README with license details if you plan to make it public.
