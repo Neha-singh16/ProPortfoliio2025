@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
 
 type ReqBody = {
   firstName: string;
@@ -16,41 +17,74 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
+    const subject = `New message from ${body.firstName} ${body.lastName || ""}`.trim();
+    const text = `Name: ${body.firstName} ${body.lastName || ""}\nEmail: ${body.email}\n\n${body.message}`;
+    const html = `<p><strong>Name:</strong> ${body.firstName} ${body.lastName || ""}</p>
+      <p><strong>Email:</strong> ${body.email}</p>
+      <p style="white-space:pre-wrap;">${body.message}</p>`;
+
+    // 1) Try SMTP if configured
     const host = process.env.SMTP_HOST;
     const port = process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : 587;
     const user = process.env.SMTP_USER;
     const pass = process.env.SMTP_PASS;
 
-    if (!host || !user || !pass) {
-      console.error("SMTP credentials are missing in environment variables.");
-      return NextResponse.json({ error: "Server not configured to send email" }, { status: 500 });
+    const toEnv = process.env.TO_EMAIL;
+    const fromEnv = process.env.FROM_EMAIL;
+
+    if (host && user && pass) {
+      const transporter = nodemailer.createTransport({
+        host,
+        port,
+        secure: port === 465,
+        auth: { user, pass },
+      });
+
+      const to = toEnv || user;
+      const from = fromEnv || user;
+      await transporter.sendMail({ from, to, subject, text, html, replyTo: body.email });
+      return NextResponse.json({ ok: true, method: "smtp" });
     }
 
-    const transporter = nodemailer.createTransport({
-      host,
-      port,
-      secure: port === 465,
-      auth: {
-        user,
-        pass,
+    // 2) Fallback to Resend if API key provided
+    const resendKey = process.env.RESEND_API_KEY;
+    if (resendKey) {
+      const resend = new Resend(resendKey);
+      const to = toEnv || process.env.RESEND_TO || process.env.TO_EMAIL;
+      const from = fromEnv || "Portfolio Contact <onboarding@resend.dev>"; // Resend requires a verified sender in prod
+
+      if (!to) {
+        return NextResponse.json(
+          { error: "Missing TO_EMAIL (or RESEND_TO). Set a recipient email." },
+          { status: 500 }
+        );
+      }
+
+      const { error } = await resend.emails.send({
+        from,
+        to,
+        subject,
+        text,
+        html,
+        replyTo: body.email,
+      });
+
+      if (error) {
+        console.error("Resend error:", error);
+        return NextResponse.json({ error: "Failed to send email (Resend)" }, { status: 500 });
+      }
+
+      return NextResponse.json({ ok: true, method: "resend" });
+    }
+
+    // 3) Neither SMTP nor Resend configured
+    return NextResponse.json(
+      {
+        error:
+          "Email service not configured. Provide SMTP_* or RESEND_API_KEY env vars.",
       },
-    });
-
-    const to = process.env.TO_EMAIL || user;
-    const from = process.env.FROM_EMAIL || user;
-
-    const subject = `New message from ${body.firstName} ${body.lastName || ""}`.trim();
-    const text = `Name: ${body.firstName} ${body.lastName || ""}\nEmail: ${body.email}\n\n${body.message}`;
-
-    await transporter.sendMail({
-      from,
-      to,
-      subject,
-      text,
-      replyTo: body.email,
-    });
-
-    return NextResponse.json({ ok: true });
+      { status: 500 }
+    );
   } catch (err) {
     console.error("Error sending contact email:", err);
     return NextResponse.json({ error: "Failed to send email" }, { status: 500 });

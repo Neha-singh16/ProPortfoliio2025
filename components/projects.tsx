@@ -13,30 +13,33 @@ const projects = [
       "A full-stack budget management app. Built secure role-based auth with JWT & HTTP-only cookies. Features real-time financial tracking with Chart.js visualization and REST APIs for CRUD operations.",
     tags: ["React", "Node.js", "Express", "MongoDB", "Chart.js"],
     github: "https://github.com/Neha-singh16/Budget-backend",
+    demo: "https://budget-buddy-frontend-two.vercel.app/",
+    featured: true,
+    year: "2025",
+    image: "/images/thumbline1.png",
+  },
+  {
+    title: "Hintly",
+    description:
+      "Chrome extension providing AI-powered hints for coding challenges on LeetCode and GeeksforGeeks. Uses local Ollama AI for privacy-first hint generation with progress analytics and smart context extraction.",
+    tags: ["React", "TypeScript", "Chrome Extension", "Ollama AI", "Tailwind"],
+    github: "https://github.com/Neha-singh16/Hintly",
     demo: "#",
     featured: true,
     year: "2025",
+    image: "/images/thumbline2.png",
   },
-  {
-    title: "WatchHub",
-    description:
-      "Scalable video streaming platform with live search and debounce (reduced API calls by 40%). Integrated YouTube API for content fetching and implemented optimized UI rendering.",
-    tags: ["React", "Node.js", "YouTube API", "Tailwind"],
-    github: "https://github.com/Neha-singh16/Watch-Hub",
-    demo: "#",
-    featured: true,
-    year: "2025",
-  },
-  {
-    title: "Portfolio Website",
-    description:
-      "A modern, responsive portfolio website built with Next.js and Framer Motion to showcase my skills and projects. Features dark mode and smooth animations.",
-    tags: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
-    github: "#",
-    demo: "#",
-    featured: false,
-    year: "2025",
-  },
+  // {
+  //   title: "Portfolio Website",
+  //   description:
+  //     "A modern, responsive portfolio website built with Next.js and Framer Motion to showcase my skills and projects. Features dark mode and smooth animations.",
+  //   tags: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
+  //   github: "#",
+  //   demo: "#",
+  //   featured: false,
+  //   year: "2025",
+  //   image: "/images/photo3.png",
+  // },
   // {
   //   title: "Weather App",
   //   description:
@@ -71,19 +74,19 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-24 bg-[#0a0a0a] border-t border-zinc-900">
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+    <section id="projects" className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#0a0a0a] border-t border-zinc-900">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 w-full">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-12 sm:mb-16 gap-4 sm:gap-6">
           <div>
             <motion.h2
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-4xl md:text-7xl font-bold font-heading uppercase tracking-tighter text-white"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold font-heading uppercase tracking-tighter text-white"
             >
               Selected <span className="text-stroke-purple">Works</span>
             </motion.h2>
-            <p className="text-zinc-400 mt-4 max-w-md">
+            <p className="text-sm sm:text-base text-zinc-400 mt-3 sm:mt-4 max-w-md">
               A collection of projects that showcase my journey in frontend development.
             </p>
           </div>
@@ -96,7 +99,7 @@ export default function Projects() {
           </Button>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={index}
@@ -115,22 +118,33 @@ export default function Projects() {
                 }}
               >
                 <CardHeader className="p-0">
-                  <div className="h-64 bg-zinc-800 relative overflow-hidden group-hover:bg-zinc-800/80 transition-colors flex items-center justify-center">
-                    <div className="absolute inset-0 bg-linear-to-tr from-zinc-900 to-zinc-800/50"></div>
-
-                    {/* Placeholder visual for project */}
-                    <div className="text-6xl font-bold text-zinc-800 select-none group-hover:text-zinc-700 transition-colors duration-500 font-heading uppercase">
-                      {project.title.split(" ")[0]}
-                    </div>
+                  <div className="w-full aspect-16/10 bg-zinc-800 relative overflow-hidden flex items-center justify-center shrink-0">
+                    {/* Project Image */}
+                    {project.image ? (
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-linear-to-tr from-zinc-900 to-zinc-800/50 flex items-center justify-center">
+                        <div className="text-6xl font-bold text-zinc-800 select-none group-hover:text-zinc-700 transition-colors duration-500 font-heading uppercase">
+                          {project.title.split(" ")[0]}
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* Overlay for better text contrast */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500"></div>
 
                     <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10 text-xs font-mono text-white">
                       {project.year}
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="p-6 md:p-8">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-2xl font-bold font-heading uppercase text-white group-hover:text-purple-400 transition-colors">
+                <CardContent className="p-4 sm:p-6 md:p-8">
+                  <div className="flex justify-between items-start mb-3 sm:mb-4">
+                    <h3 className="text-xl sm:text-2xl font-bold font-heading uppercase text-white group-hover:text-purple-400 transition-colors">
                       {project.title}
                     </h3>
                     <div className="flex gap-2">
@@ -176,14 +190,14 @@ export default function Projects() {
                     </div>
                   </div>
 
-                  <p className="text-zinc-400 mb-6 line-clamp-3">{project.description}</p>
+                  <p className="text-sm sm:text-base text-zinc-400 mb-4 sm:mb-6 line-clamp-3">{project.description}</p>
 
-                  <div className="flex flex-wrap gap-2 mt-auto">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-auto">
                     {project.tags.map((tag) => (
                       <Badge
                         key={tag}
                         variant="outline"
-                        className="bg-transparent border-zinc-700 text-zinc-400 group-hover:text-zinc-300"
+                        className="bg-transparent border-zinc-700 text-zinc-400 group-hover:text-zinc-300 text-xs sm:text-sm"
                       >
                         {tag}
                       </Badge>
@@ -195,7 +209,7 @@ export default function Projects() {
           ))}
         </div>
 
-        <div className="mt-12 text-center md:hidden">
+        <div className="mt-8 sm:mt-12 text-center md:hidden">
           <Button
             variant="outline"
             className="rounded-full border-zinc-700 text-white hover:bg-white hover:text-black w-full bg-transparent"

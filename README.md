@@ -32,4 +32,5 @@ Open http://localhost:3000 in your browser.
 
 ## License
 
-This repository is private. Update the README with license details if you plan to make it public.
+This repository is private. Update the README with license details if you plan to make it 
+public.

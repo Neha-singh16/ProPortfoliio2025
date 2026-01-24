@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export interface ResumeSectionProps {
   photoUrl?: string;
@@ -8,7 +8,7 @@ export interface ResumeSectionProps {
   handle?: string;
   role?: string;
   location?: string;
-  tools?: { name: string; color?: string; initials?: string }[];
+  tools?: { name: string; icon?: string }[];
   resumeUrl?: string;
 }
 
@@ -22,9 +22,16 @@ export default function ResumeSectionFragmented({
   resumeUrl = "/pdf/NehaResumeOct.pdf",
 }: ResumeSectionProps) {
   const fallbackImages = [
-    "/images/photo1.jpg",
+    "/images/photo1.png",
     "/images/photo2.png",
     "/images/photo3.png",
+     "/images/photo4.jpg",
+  ];
+  const imageQuotes = [
+    "Elegance in pixels, logic in lines.",
+    "Shipping calm UI and cleaner commits.",
+    "Design that listens. Code that behaves.",
+    "Less drama. More semantic commas."
   ];
   const images = photoUrl
     ? [photoUrl, ...fallbackImages.filter((p) => p !== photoUrl)]
@@ -34,7 +41,7 @@ export default function ResumeSectionFragmented({
   const [imgSrc, setImgSrc] = useState(images[0] || fallbackImages[0]);
 
   useEffect(() => {
-    const t = setInterval(() => setIndex((i) => (i + 1) % images.length), 4500);
+    const t = setInterval(() => setIndex((i) => (i + 1) % images.length), 2000);
     return () => clearInterval(t);
   }, [images.length]);
 
@@ -47,11 +54,21 @@ export default function ResumeSectionFragmented({
   }
 
   const defaultTools = [
-    { name: "Xd", color: "#FF6FD8", initials: "Xd" },
-    { name: "Ai", color: "#FFB84D", initials: "Ai" },
-    { name: "Ps", color: "#4AB3FF", initials: "Ps" },
-    { name: "Figma", color: "#0ACF83", initials: "Fg" },
-    { name: "Framer", color: "#0055FF", initials: "Fr" },
+    { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+    { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+    { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+    { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+    { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+    { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
+    { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
+    { name: "Express", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
+    { name: "C++", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" },
+    { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+    { name: "Replit", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/replit/replit-original.svg" },
+    { name: "Canva", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg" },
+    { name: "Figma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+    { name: "Postman", icon: "https://www.svgrepo.com/show/354202/postman-icon.svg" },
+    { name: "VS Code", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
   ];
   const itemList = tools && tools.length ? tools : defaultTools;
 
@@ -60,10 +77,10 @@ export default function ResumeSectionFragmented({
 
   return (
     // remove custom bg so it matches main layout background
-    <section id="resume" className="min-h-screen px-6 py-16 text-white">
+    <section id="resume" className="min-h-screen px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20 text-white">
       <div className="max-w-[1240px] mx-auto">
         {/* ===== HERO: ME, MYSELF + arrow + copy ===== */}
-        <div className="mb-14 lg:mb-20">
+        <div className="mb-10 sm:mb-14 lg:mb-20">
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,480px)_minmax(0,1fr)] gap-10 items-start">
             {/* LEFT: big heading + animated arrow (similar to reference) */}
             <div className="flex lg:block">
@@ -173,19 +190,34 @@ export default function ResumeSectionFragmented({
           <main className="order-1">
             <figure className="rounded-2xl bg-[#0b0b0b] border border-gray-800 p-4 shadow-sm">
               <div className="rounded-xl overflow-hidden border border-gray-800 bg-[#111111]">
-                <motion.img
-                  whileHover={imageHover}
-                  src={imgSrc}
-                  onError={handleImgError}
-                  alt={`${name} portrait`}
-                  className="w-full h-[520px] object-cover block"
-                />
+                <div className="w-full aspect-3/4 relative flex items-center justify-center overflow-hidden">
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={imgSrc}
+                      src={imgSrc}
+                      onError={handleImgError}
+                      alt={`${name} portrait`}
+                      className="w-full h-full object-cover block"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.35, ease: "easeInOut" }}
+                      whileHover={imageHover}
+                    />
+                  </AnimatePresence>
+                </div>
               </div>
 
               <figcaption className="mt-4 text-center">
-                <div className="text-gray-300 font-medium">
-                  The accidental model 😅
-                </div>
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="text-gray-300 font-medium"
+                >
+                  {imageQuotes[index] || "The accidental model 😅"}
+                </motion.div>
               </figcaption>
             </figure>
           </main>
@@ -218,36 +250,41 @@ export default function ResumeSectionFragmented({
             </section>
 
             {/* Tools marquee */}
-            <div className="rounded-2xl bg-[#0b0b0b] w-3xl border border-gray-800 p-6">
-              <p className="text-center text-sm text-gray-400 uppercase tracking-widest">
-                Tools I swear by
+            <div className="rounded-2xl bg-[#0b0b0b] w-3xl border border-gray-800 p-4 sm:p-6">
+              <p className="text-center text-sm text-gray-400 uppercase tracking-widest mb-6">
+                Tech Stack
               </p>
 
-              <div className="mt-4 overflow-hidden relative">
-                <div className="absolute left-0 top-0 bottom-0 w-12 pointer-events-none bg-gradient-to-r from-[#0b0b0b] via-transparent" />
-                <div className="absolute right-0 top-0 bottom-0 w-12 pointer-events-none bg-gradient-to-l from-[#0b0b0b] via-transparent" />
+              <div className="overflow-hidden relative">
+                <div className="absolute left-0 top-0 bottom-0 w-16 pointer-events-none bg-linear-to-r from-[#0b0b0b] to-transparent z-10" />
+                <div className="absolute right-0 top-0 bottom-0 w-16 pointer-events-none bg-linear-to-l from-[#0b0b0b] to-transparent z-10" />
 
                 <div className="overflow-hidden">
-                  <div className="marquee-track flex gap-4 py-3 will-change-transform">
+                  <div className="marquee-track flex gap-2 sm:gap-3 py-3 will-change-transform">
                     {[...itemList, ...itemList].map((t, i) => (
                       <motion.div
                         key={i}
-                        className="flex items-center gap-4 p-3 rounded-lg bg-[#151515] border border-gray-800"
-                        whileHover={{ scale: 1.03 }}
-                        style={{ minWidth: 120 }}
+                        className="flex items-center justify-center p-2 sm:p-3 rounded-lg bg-[#151515]/50 border border-gray-800/50 backdrop-blur-sm min-w-12 min-h-12 sm:min-w-16 sm:min-h-16"
+                        whileHover={{ 
+                          scale: 1.1,
+                          borderColor: "rgba(168, 85, 247, 0.4)",
+                          backgroundColor: "rgba(21, 21, 21, 0.8)",
+                          transition: { duration: 0.2 }
+                        }}
                         title={t.name}
                       >
-                        <div
-                          className="w-12 h-12 rounded-lg flex items-center justify-center"
-                          style={{ background: t.color || "#ddd" }}
-                        >
-                          <span className="font-semibold text-black">
-                            {t.initials || t.name.slice(0, 2)}
+                        {t.icon ? (
+                          <img 
+                            src={t.icon} 
+                            alt={t.name}
+                            className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
+                            style={{ filter: 'brightness(0.9)' }}
+                          />
+                        ) : (
+                          <span className="text-sm font-medium text-gray-300">
+                            {t.name}
                           </span>
-                        </div>
-                        {/* <div className="hidden md:block text-sm text-gray-300">
-                          {t.name}
-                        </div> */}
+                        )}
                       </motion.div>
                     ))}
                   </div>
