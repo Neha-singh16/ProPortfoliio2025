@@ -1,7 +1,8 @@
 "use client"
 import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
-import { useRef } from "react"
+import { Button } from "@/components/ui/button"
+import { useRef, useState } from "react"
 
 const skillCategories = [
   {
@@ -43,8 +44,43 @@ const craftHighlights = [
   { label: "Collab", detail: "Product pairing, fast prototypes, crisp documentation" },
 ]
 
+const primaryTech = [
+  { name: "React", experience: "2+ years", projects: ["BuddyBudget", "Hintly", "Portfolio"] },
+  { name: "Next.js", experience: "~1.5 years", projects: ["Portfolio", "Case studies"] },
+  { name: "Node.js", experience: "~2 years", projects: ["BuddyBudget API"] },
+  { name: "MongoDB", experience: "~2 years", projects: ["BuddyBudget"] },
+  { name: "JavaScript", experience: "2+ years", projects: ["Across projects"] },
+  { name: "TypeScript", experience: "~1.5 years", projects: ["Hintly", "Portfolio"] },
+]
+
+const otherTools = [
+  "Express",
+  "Tailwind CSS",
+  "Framer Motion",
+  "Redux Toolkit",
+  "shadcn/ui",
+  "Radix UI",
+  "Chart.js",
+  "Postman",
+  "Git",
+  "GitHub",
+  "Vercel",
+  "Figma",
+  "Docker",
+  "Netlify",
+  "Material-UI",
+  "SASS/SCSS",
+  "Prisma",
+  "REST APIs",
+  "GraphQL",
+  "AWS",
+  "Firebase",
+  "VS Code",
+]
+
 export default function Skills() {
   const ref = useRef<HTMLElement>(null)
+  const [showOther, setShowOther] = useState(false)
 
   return (
     <section ref={ref} id="skills" className="py-16 sm:py-20 md:py-24 lg:py-28 bg-[#050505] relative overflow-hidden">
@@ -112,34 +148,71 @@ export default function Skills() {
           </motion.div>
 
           <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
-            {skillCategories.map((category, index) => (
-              <motion.div
-                key={category.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/60 p-5 sm:p-6 backdrop-blur-sm group"
-              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${category.accent} opacity-60 group-hover:opacity-80 transition-opacity duration-300`} aria-hidden></div>
-                <div className="absolute inset-px rounded-2xl border border-white/5 opacity-80" aria-hidden></div>
-                <div className="relative flex items-start justify-between gap-3 mb-4">
-                  <h3 className="text-lg sm:text-xl font-semibold text-white tracking-tight">{category.title}</h3>
-                  <span className="text-[11px] uppercase tracking-[0.18em] text-white/70">{category.items.length}</span>
-                </div>
+            {/* Primary Tech */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/60 p-5 sm:p-6 backdrop-blur-sm"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/18 via-indigo-500/12 to-blue-500/10 opacity-60" aria-hidden></div>
+              <div className="absolute inset-px rounded-2xl border border-white/5 opacity-80" aria-hidden></div>
+              <div className="relative mb-4 flex items-center justify-between">
+                <h3 className="text-lg sm:text-xl font-semibold text-white tracking-tight">Primary Tech</h3>
+                <span className="text-[11px] uppercase tracking-[0.18em] text-white/70">{primaryTech.length}</span>
+              </div>
+              <div className="relative grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {primaryTech.map((t) => (
+                  <div key={t.name} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <p className="text-sm sm:text-base font-semibold text-white">{t.name}</p>
+                    <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+                      {t.name} — {t.experience} 
+                      <span className="text-zinc-500">(projects: {t.projects.join(", ")})</span>
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Other Tools (expandable) */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/60 p-5 sm:p-6 backdrop-blur-sm"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/14 via-indigo-500/12 to-purple-500/10 opacity-60" aria-hidden></div>
+              <div className="absolute inset-px rounded-2xl border border-white/5 opacity-80" aria-hidden></div>
+
+              <div className="relative mb-4 flex items-center justify-between">
+                <h3 className="text-lg sm:text-xl font-semibold text-white tracking-tight">Other Tools</h3>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="rounded-full border-zinc-700 text-white hover:bg-zinc-900"
+                  aria-expanded={showOther}
+                  onClick={() => setShowOther((v) => !v)}
+                >
+                  {showOther ? "Hide" : "Show"}
+                </Button>
+              </div>
+
+              {showOther ? (
                 <div className="relative flex flex-wrap gap-2">
-                  {category.items.map((skill) => (
+                  {otherTools.map((tool) => (
                     <Badge
-                      key={skill}
+                      key={tool}
                       variant="secondary"
-                      className="bg-zinc-900/70 hover:bg-white/20 text-zinc-100 border-white/10 px-2.5 py-1.5 text-[11px] sm:text-xs font-medium tracking-tight transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_-18px_rgba(255,255,255,0.6)] cursor-default"
+                      className="bg-zinc-900/70 hover:bg.white/20 text-zinc-100 border-white/10 px-2.5 py-1.5 text-[11px] sm:text-xs font-medium tracking-tight transition-transform duration-200 hover:-translate-y-0.5"
                     >
-                      {skill}
+                      {tool}
                     </Badge>
                   ))}
                 </div>
-              </motion.div>
-            ))}
+              ) : (
+                <p className="relative text-sm text-zinc-400">A broader toolkit for delivery and polish — expand to view.</p>
+              )}
+            </motion.div>
           </div>
         </div>
       </div>

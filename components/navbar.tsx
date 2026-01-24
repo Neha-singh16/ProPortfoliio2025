@@ -61,13 +61,13 @@ export default function Navbar() {
 
           {/* Tablet + Mobile Icons */}
           <div className="lg:hidden flex items-center gap-1 sm:gap-3 text-zinc-300">
-            <Link href="#about" className="p-1 sm:p-1.5 hover:text-white transition-colors hover:bg-white/5 rounded-lg">
+            <Link href="#about" aria-label="About" className="p-1 sm:p-1.5 hover:text-white transition-colors hover:bg-white/5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
               <User size={18} className="sm:w-5 sm:h-5" />
             </Link>
-            <Link href="#projects" className="p-1 sm:p-1.5 hover:text-white transition-colors hover:bg-white/5 rounded-lg">
+            <Link href="#projects" aria-label="Projects" className="p-1 sm:p-1.5 hover:text-white transition-colors hover:bg-white/5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
               <Code size={18} className="sm:w-5 sm:h-5" />
             </Link>
-            <Link href="#contact" className="p-1 sm:p-1.5 hover:text-white transition-colors hover:bg-white/5 rounded-lg">
+            <Link href="#contact" aria-label="Contact" className="p-1 sm:p-1.5 hover:text-white transition-colors hover:bg-white/5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
               <Mail size={18} className="sm:w-5 sm:h-5" />
             </Link>
           </div>
