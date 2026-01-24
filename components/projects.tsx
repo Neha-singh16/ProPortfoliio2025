@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Github, ExternalLink } from "lucide-react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -120,11 +121,16 @@ export default function Projects() {
                   <div className="w-full aspect-16/10 bg-zinc-800 relative overflow-hidden flex items-center justify-center shrink-0">
                     {/* Project Image */}
                     {project.image ? (
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
+                      <div className="absolute inset-0">
+                        <Image
+                          src={project.image}
+                          alt={`${project.title} preview`}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 600px"
+                          priority={false}
+                          className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                      </div>
                     ) : (
                       <div className="absolute inset-0 bg-linear-to-tr from-zinc-900 to-zinc-800/50 flex items-center justify-center">
                         <div className="text-6xl font-bold text-zinc-800 select-none group-hover:text-zinc-700 transition-colors duration-500 font-heading uppercase">
@@ -143,20 +149,21 @@ export default function Projects() {
                 </CardHeader>
                 <CardContent className="p-4 sm:p-6 md:p-8">
                   <div className="flex justify-between items-start mb-3 sm:mb-4">
-                    <h3 className="text-xl sm:text-2xl font-bold font-heading uppercase text-white group-hover:text-purple-400 transition-colors">
+                    <h3 className="text-xl sm:text-2xl font-bold font-heading text-white group-hover:text-purple-400 transition-colors">
                       {project.title}
                     </h3>
                     <div className="flex gap-2">
                       {project.demo && project.demo !== "#" ? (
-                        <a
-                          href={project.demo}
-                          target="_blank"
-                          rel="noreferrer"
-                          aria-label={`${project.title} demo`}
-                          className="h-8 w-8 rounded-full inline-flex items-center justify-center bg-white/6 hover:bg-white/10 text-white transition-colors"
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            window.open(project.demo as string, "_blank", "noreferrer")
+                          }}
+                          aria-label={`${project.title} live demo`}
+                          className="h-8 w-8 rounded-full inline-flex items-center justify-center bg-white/6 hover:bg-white/10 text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                         >
                           <ExternalLink className="h-4 w-4" />
-                        </a>
+                        </button>
                       ) : (
                         <button
                           disabled
@@ -168,15 +175,16 @@ export default function Projects() {
                       )}
 
                       {project.github && project.github !== "#" ? (
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noreferrer"
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            window.open(project.github as string, "_blank", "noreferrer")
+                          }}
                           aria-label={`${project.title} source on GitHub`}
-                          className="h-8 w-8 rounded-full inline-flex items-center justify-center bg-white/6 hover:bg-white/10 text-white transition-colors"
+                          className="h-8 w-8 rounded-full inline-flex items-center justify-center bg-white/6 hover:bg-white/10 text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                         >
                           <Github className="h-4 w-4" />
-                        </a>
+                        </button>
                       ) : (
                         <button
                           disabled
@@ -189,7 +197,7 @@ export default function Projects() {
                     </div>
                   </div>
 
-                  <p className="text-sm sm:text-base text-zinc-400 mb-4 sm:mb-6 line-clamp-3">{project.description}</p>
+                  <p className="text-sm sm:text-base text-zinc-300 mb-4 sm:mb-6 leading-relaxed max-w-[70ch]">{project.description}</p>
 
                   {project.impact && (
                     <p className="text-xs sm:text-sm text-purple-400 font-medium mb-3 sm:mb-4 italic flex items-center gap-2">
