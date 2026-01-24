@@ -33,11 +33,9 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[7rem] leading-[1.1] sm:leading-[0.95] font-bold font-heading tracking-tighter uppercase text-white mb-3 sm:mb-2"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[5rem] leading-[1.2] sm:leading-[1.1] font-bold font-heading tracking-tight text-white mb-3 sm:mb-2"
             >
-              Hey,
-              <br />
-              I'm Neha <span className="text-stroke text-transparent">Singh</span>
+              Neha Singh — React &amp; Next.js Developer
             </motion.h1>
 
             <motion.div
@@ -46,8 +44,8 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="absolute -top-6 sm:-top-8 md:-top-10 right-0 md:right-20 lg:right-10 hidden md:block"
             >
-              <span className="font-script text-5xl md:text-6xl lg:text-7xl text-purple-400 transform -rotate-12 block whitespace-nowrap">
-                Full Stack Developer
+              <span className="font-script text-4xl md:text-5xl lg:text-6xl text-purple-400 transform -rotate-12 block whitespace-nowrap">
+                Building Production Apps
               </span>
               <svg
                 className="absolute -bottom-2 left-0 w-full h-3 text-purple-400"
@@ -72,7 +70,7 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="md:hidden mb-4"
             >
-              <span className="font-script text-3xl sm:text-4xl text-purple-400">Full Stack Dev</span>
+              <span className="font-script text-2xl sm:text-3xl text-purple-400">Building Production Apps</span>
             </motion.div>
           </div>
 
@@ -82,9 +80,7 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="text-sm sm:text-base md:text-lg text-zinc-400 max-w-md mt-4 sm:mt-6 mb-6 sm:mb-8 leading-relaxed"
           >
-            Passionate <strong>Full Stack Developer</strong> & <strong>BCA Student (2026)</strong>. I build scalable web
-            platforms using MERN stack, Next.js, and modern tools. Turning complex problems into elegant, user-friendly
-            solutions.
+            I build accessible MERN apps with clean UI and measurable impact. Open to internships &amp; junior roles.
           </motion.p>
 
           <motion.div
@@ -97,9 +93,10 @@ export function Hero() {
               asChild
               size="lg"
               className="bg-white text-black hover:bg-zinc-200 rounded-full px-6 sm:px-8 text-sm sm:text-base font-bold"
+              aria-label="View Projects"
             >
               <Link href="#projects">
-                View Work <ArrowRight className="ml-2 h-4 w-4" />
+                View Projects <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button
@@ -107,8 +104,11 @@ export function Hero() {
               variant="outline"
               size="lg"
               className="rounded-full px-6 sm:px-8 text-sm sm:text-base border-zinc-700 text-white hover:bg-zinc-900 hover:text-white bg-transparent"
+              aria-label="Download Resume"
             >
-              <Link href="#contact">Contact Me</Link>
+              <a href="/pdf/NehaResumeOct.pdf" download="NehaResumeOct.pdf">
+                Download Resume
+              </a>
             </Button>
           </motion.div>
         </div>

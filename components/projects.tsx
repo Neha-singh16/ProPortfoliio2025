@@ -5,29 +5,34 @@ import { Github, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import Link from "next/link"
 
 const projects = [
   {
     title: "BuddyBudget",
     description:
       "A full-stack budget management app. Built secure role-based auth with JWT & HTTP-only cookies. Features real-time financial tracking with Chart.js visualization and REST APIs for CRUD operations.",
+    impact: "Real-time financial tracking with 100% secure JWT auth",
     tags: ["React", "Node.js", "Express", "MongoDB", "Chart.js"],
     github: "https://github.com/Neha-singh16/Budget-backend",
     demo: "https://budget-buddy-frontend-two.vercel.app/",
     featured: true,
     year: "2025",
     image: "/images/thumbline1.png",
+    slug: "buddy-budget",
   },
   {
     title: "Hintly",
     description:
       "Chrome extension providing AI-powered hints for coding challenges on LeetCode and GeeksforGeeks. Uses local Ollama AI for privacy-first hint generation with progress analytics and smart context extraction.",
+    impact: "Privacy-first AI hints with 0ms local processing",
     tags: ["React", "TypeScript", "Chrome Extension", "Ollama AI", "Tailwind"],
     github: "https://github.com/Neha-singh16/Hintly",
     demo: "#",
     featured: true,
     year: "2025",
     image: "/images/thumbline2.png",
+    slug: "hintly",
   },
   // {
   //   title: "Portfolio Website",
@@ -109,14 +114,8 @@ export default function Projects() {
               transition={{ delay: index * 0.1 }}
               className="group"
             >
-              <Card
-                className={`bg-zinc-900 border-zinc-800 overflow-hidden h-full hover:border-purple-500/50 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-purple-900/10 ${
-                  project.demo && project.demo !== "#" ? "cursor-pointer" : ""
-                }`}
-                onClick={() => {
-                  if (project.demo && project.demo !== "#") window.open(project.demo, "_blank")
-                }}
-              >
+              <Link href={`/projects/${project.slug}`}>
+                <Card className="bg-zinc-900 border-zinc-800 overflow-hidden h-full hover:border-purple-500/50 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-purple-900/10 cursor-pointer">
                 <CardHeader className="p-0">
                   <div className="w-full aspect-16/10 bg-zinc-800 relative overflow-hidden flex items-center justify-center shrink-0">
                     {/* Project Image */}
@@ -192,6 +191,12 @@ export default function Projects() {
 
                   <p className="text-sm sm:text-base text-zinc-400 mb-4 sm:mb-6 line-clamp-3">{project.description}</p>
 
+                  {project.impact && (
+                    <p className="text-xs sm:text-sm text-purple-400 font-medium mb-3 sm:mb-4 italic flex items-center gap-2">
+                      <span className="text-lg">✨</span> {project.impact}
+                    </p>
+                  )}
+
                   <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-auto">
                     {project.tags.map((tag) => (
                       <Badge
@@ -205,6 +210,7 @@ export default function Projects() {
                   </div>
                 </CardContent>
               </Card>
+                          </Link>
             </motion.div>
           ))}
         </div>

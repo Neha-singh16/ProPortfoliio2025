@@ -6,7 +6,7 @@ import { useState } from "react"
 
 import type React from "react"
 import { motion } from "framer-motion"
-import { Mail, MapPin, Send, Linkedin, Github } from "lucide-react"
+import { Mail, MapPin, Send, Linkedin, Github, AlertCircle, CheckCircle, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -20,6 +20,13 @@ export default function Contact() {
     email: "",
     message: "",
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [submitMessage, setSubmitMessage] = useState("")
+  const [formReady, setFormReady] = useState(false)
+  const [showFallback, setShowFallback] = useState(false)
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({})
+
   const defaultMessage =
     "Hi Neha, I loved your portfolio and want to chat about a potential project. Are you available for a quick call this week?"
   const quickMessages = [
@@ -48,12 +55,80 @@ export default function Contact() {
   }, [])
 
   useEffect(() => {
-    // mark as mounted to avoid SSR/CSR markup mismatch
     setMounted(true)
+    // Check if API is available within 2 seconds
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 2000)
+
+    fetch("/api/contact", {
+      method: "HEAD",
+      signal: controller.signal,
+    })
+      .then(() => {
+        setFormReady(true)
+        setShowFallback(false)
+      })
+      .catch(() => {
+        // API unavailable or timeout; show fallback
+        setShowFallback(true)
+        setFormReady(false)
+      })
+      .finally(() => clearTimeout(timeoutId))
   }, [])
 
+  const validateForm = (): boolean => {
+    const errors: Record<string, string> = {}
+    if (!formData.firstName.trim()) errors.firstName = "First name is required"
+    if (!formData.email.trim()) errors.email = "Email is required"
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) errors.email = "Invalid email format"
+    if (!formData.message.trim()) errors.message = "Message is required"
+    setFormErrors(errors)
+    return Object.keys(errors).length === 0
+  }
+
+  const trackAnalytics = (action: string, label: string) => {
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", action, { event_label: label })
+    }
+  }
+
+  const handleSubmitForm = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!validateForm()) return
+
+    setIsSubmitting(true)
+    setSubmitStatus("idle")
+    trackAnalytics("contact_attempt", "form_submit")
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        setSubmitStatus("success")
+        setSubmitMessage("Message sent! I'll get back to you soon.")
+        setFormData({ firstName: "", lastName: "", email: "", message: "" })
+        setFormErrors({})
+        trackAnalytics("contact_success", "form_submit")
+        setTimeout(() => setSubmitStatus("idle"), 5000)
+      } else {
+        throw new Error("Form submission failed")
+      }
+    } catch (error) {
+      setSubmitStatus("error")
+      setSubmitMessage("Failed to send message. Please try emailing me directly.")
+      trackAnalytics("contact_error", "form_submit")
+      console.error("Contact form error:", error)
+      setTimeout(() => setSubmitStatus("idle"), 5000)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   const handleMessageFocus = () => {
-    // Pre-fill a friendly message if the user clicks into an empty box
     if (!formData.message.trim()) {
       setFormData((prev) => ({ ...prev, message: defaultMessage }))
     }
@@ -62,6 +137,15 @@ export default function Contact() {
   const handleQuickMessage = (text: string) => {
     setFormData((prev) => ({ ...prev, message: text }))
   }
+
+  const handleMailtoFallback = () => {
+    trackAnalytics("contact_attempt", "mailto_fallback")
+    const subject = `Message from ${formData.firstName || ""} ${formData.lastName || ""}`.trim()
+    const body = formData.message || defaultMessage
+    const href = `mailto:singhn5443@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    window.location.href = href
+  }
+
 
   return (
     <section ref={ref} id="contact" className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#050505] relative">
@@ -137,99 +221,162 @@ export default function Contact() {
           >
             <Card className="bg-zinc-900/50 border-zinc-800 p-1.5 sm:p-2">
               <CardContent className="p-4 sm:p-6">
-                {/* Render interactive form only after client mount to avoid hydration errors */}
                 {mounted ? (
-                  <form className="space-y-4 sm:space-y-6">
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium text-zinc-400 uppercase">First Name</label>
-                        <Input
-                          className="bg-zinc-950 border-zinc-800 focus:border-purple-500 h-12 text-white"
-                          placeholder="Jane"
-                          value={formData.firstName}
-                          onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                          required
-                        />
+                  <>
+                    {/* Fallback Message */}
+                    {showFallback && (
+                      <div className="mb-4 p-4 rounded-lg bg-orange-900/20 border border-orange-700/50 flex gap-3">
+                        <Clock className="w-5 h-5 text-orange-400 shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-sm text-orange-300 font-medium">Form experiencing delays</p>
+                          <p className="text-xs text-orange-200 mt-1">
+                            If the form doesn't load, email me directly below.
+                          </p>
+                        </div>
                       </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium text-zinc-400 uppercase">Last Name</label>
-                        <Input
-                          className="bg-zinc-950 border-zinc-800 focus:border-purple-500 h-12 text-white"
-                          placeholder="Doe"
-                          value={formData.lastName}
-                          onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                          required
-                        />
+                    )}
+
+                    {/* Status Messages */}
+                    {submitStatus === "success" && (
+                      <div className="mb-4 p-4 rounded-lg bg-green-900/20 border border-green-700/50 flex gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-400 shrink-0 mt-0.5" />
+                        <p className="text-sm text-green-300">{submitMessage}</p>
                       </div>
-                    </div>
+                    )}
 
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium text-zinc-400 uppercase">Email</label>
-                      <Input
-                        className="bg-zinc-950 border-zinc-800 focus:border-purple-500 h-12 text-white"
-                        type="email"
-                        placeholder="jane@example.com"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        required
-                      />
-                    </div>
+                    {submitStatus === "error" && (
+                      <div className="mb-4 p-4 rounded-lg bg-red-900/20 border border-red-700/50 flex gap-3">
+                        <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+                        <p className="text-sm text-red-300">{submitMessage}</p>
+                      </div>
+                    )}
 
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium text-zinc-400 uppercase">Message</label>
-                      <Textarea
-                        className="bg-zinc-950 border-zinc-800 focus:border-purple-500 min-h-[150px] resize-none text-white"
-                        placeholder="Tell me about your project..."
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        onFocus={handleMessageFocus}
-                        required
-                      />
-                      <div className="flex flex-wrap gap-2">
-                        {quickMessages.map((msg) => (
+                    {/* Form */}
+                    <form onSubmit={handleSubmitForm} className="space-y-4 sm:space-y-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-zinc-400 uppercase">
+                            First Name <span className="text-red-400">*</span>
+                          </label>
+                          <Input
+                            className={`bg-zinc-950 border-zinc-800 focus:border-purple-500 h-12 text-white ${
+                              formErrors.firstName ? "border-red-500" : ""
+                            }`}
+                            placeholder="Jane"
+                            value={formData.firstName}
+                            onChange={(e) => {
+                              setFormData({ ...formData, firstName: e.target.value })
+                              if (formErrors.firstName) {
+                                setFormErrors({ ...formErrors, firstName: "" })
+                              }
+                            }}
+                          />
+                          {formErrors.firstName && (
+                            <p className="text-xs text-red-400">{formErrors.firstName}</p>
+                          )}
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-zinc-400 uppercase">Last Name</label>
+                          <Input
+                            className="bg-zinc-950 border-zinc-800 focus:border-purple-500 h-12 text-white"
+                            placeholder="Doe"
+                            value={formData.lastName}
+                            onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-zinc-400 uppercase">
+                          Email <span className="text-red-400">*</span>
+                        </label>
+                        <Input
+                          className={`bg-zinc-950 border-zinc-800 focus:border-purple-500 h-12 text-white ${
+                            formErrors.email ? "border-red-500" : ""
+                          }`}
+                          type="email"
+                          placeholder="jane@example.com"
+                          value={formData.email}
+                          onChange={(e) => {
+                            setFormData({ ...formData, email: e.target.value })
+                            if (formErrors.email) {
+                              setFormErrors({ ...formErrors, email: "" })
+                            }
+                          }}
+                        />
+                        {formErrors.email && <p className="text-xs text-red-400">{formErrors.email}</p>}
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-zinc-400 uppercase">
+                          Message <span className="text-red-400">*</span>
+                        </label>
+                        <Textarea
+                          className={`bg-zinc-950 border-zinc-800 focus:border-purple-500 min-h-[150px] resize-none text-white ${
+                            formErrors.message ? "border-red-500" : ""
+                          }`}
+                          placeholder="Tell me about your project..."
+                          value={formData.message}
+                          onChange={(e) => {
+                            setFormData({ ...formData, message: e.target.value })
+                            if (formErrors.message) {
+                              setFormErrors({ ...formErrors, message: "" })
+                            }
+                          }}
+                          onFocus={handleMessageFocus}
+                        />
+                        {formErrors.message && <p className="text-xs text-red-400">{formErrors.message}</p>}
+                        <div className="flex flex-wrap gap-2">
+                          {quickMessages.map((msg) => (
+                            <button
+                              key={msg}
+                              type="button"
+                              onClick={() => handleQuickMessage(msg)}
+                              className="px-3 py-1 rounded-full bg-zinc-800 text-xs text-zinc-200 border border-zinc-700 hover:border-purple-500 hover:text-white transition-colors"
+                            >
+                              {msg}
+                            </button>
+                          ))}
                           <button
-                            key={msg}
                             type="button"
-                            onClick={() => handleQuickMessage(msg)}
-                            className="px-3 py-1 rounded-full bg-zinc-800 text-xs text-zinc-200 border border-zinc-700 hover:border-purple-500 hover:text-white transition-colors"
+                            onClick={() => handleQuickMessage(defaultMessage)}
+                            className="px-3 py-1 rounded-full bg-purple-600 text-xs text-white border border-purple-500 hover:bg-purple-700 transition-colors"
                           >
-                            {msg}
+                            Use friendly default
                           </button>
-                        ))}
-                        <button
-                          type="button"
-                          onClick={() => handleQuickMessage(defaultMessage)}
-                          className="px-3 py-1 rounded-full bg-purple-600 text-xs text-white border border-purple-500 hover:bg-purple-700 transition-colors"
-                        >
-                          Use friendly default
-                        </button>
+                        </div>
                       </div>
-                    </div>
 
-                    <Button
-                      type="button"
-                      className="w-full h-12 bg-white text-black hover:bg-zinc-200 text-base font-bold rounded-lg"
-                      onClick={() => {
-                        const subject = `Message from ${formData.firstName || ""} ${formData.lastName || ""}`.trim()
-                        const body = formData.message || defaultMessage
-                        const href = `mailto:singhn5443@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-                        window.location.href = href
-                      }}
-                    >
-                      Send via Email <Send className="ml-2 w-4 h-4" />
-                    </Button>
-                    <a
-                      href={`mailto:singhn5443@gmail.com?subject=${encodeURIComponent(
-                        `Message from ${formData.firstName || ""} ${formData.lastName || ""}`.trim(),
-                      )}&body=${encodeURIComponent(formData.message || defaultMessage)}`}
-                      className="block text-center text-xs text-zinc-400 hover:text-purple-400 transition-colors"
-                    >
-                      Opens your mail app with this message prefilled.
-                    </a>
-                  </form>
+                      <Button
+                        type="submit"
+                        disabled={isSubmitting || showFallback}
+                        className="w-full h-12 bg-white text-black hover:bg-zinc-200 disabled:bg-zinc-600 disabled:text-zinc-400 text-base font-bold rounded-lg"
+                      >
+                        {isSubmitting ? "Sending..." : "Send Message"} <Send className="ml-2 w-4 h-4" />
+                      </Button>
+                    </form>
+
+                    {/* Fallback Email Button */}
+                    {showFallback && (
+                      <div className="mt-4 pt-4 border-t border-zinc-800">
+                        <p className="text-xs text-zinc-500 mb-3">If the form doesn't load, send me an email:</p>
+                        <Button
+                          type="button"
+                          onClick={handleMailtoFallback}
+                          className="w-full h-12 bg-purple-600 text-white hover:bg-purple-700 text-base font-bold rounded-lg"
+                        >
+                          Email: singhn5443@gmail.com
+                        </Button>
+                      </div>
+                    )}
+                  </>
                 ) : (
-                  <div className="py-12 text-center text-gray-400">Loading contact form…</div>
+                  <div className="py-12 text-center text-gray-400">
+                    <div className="inline-block animate-spin mb-2">
+                      <Clock className="w-6 h-6" />
+                    </div>
+                    <p>Loading contact form…</p>
+                  </div>
                 )}
               </CardContent>
             </Card>
