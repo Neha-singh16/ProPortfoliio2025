@@ -5,7 +5,10 @@ import React from "react"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
-  const lastUpdated = new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
+  // Format date consistently: "Jan 24, 2026"
+  const date = new Date()
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  const lastUpdated = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
 
   const scrollToTop = () => {
     if (typeof window !== "undefined") {

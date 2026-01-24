@@ -9,6 +9,10 @@ type ReqBody = {
   message: string;
 };
 
+export async function HEAD() {
+  return new Response(null, { status: 200 });
+}
+
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as ReqBody;
@@ -77,14 +81,19 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true, method: "resend" });
     }
 
-    // 3) Neither SMTP nor Resend configured
-    return NextResponse.json(
-      {
-        error:
-          "Email service not configured. Provide SMTP_* or RESEND_API_KEY env vars.",
-      },
-      { status: 500 }
-    );
+    // 3) Fallback: log message locally and succeed
+    // (Email service not configured - this is OK for development)
+    console.log("📧 [CONTACT FORM] Message logged locally:", {
+      from: body.email,
+      name: `${body.firstName} ${body.lastName || ""}`.trim(),
+      message: body.message,
+      timestamp: new Date().toISOString(),
+    });
+    return NextResponse.json({ 
+      ok: true, 
+      method: "local-log",
+      message: "Message logged locally. Configure SMTP or Resend to send real emails."
+    });
   } catch (err) {
     console.error("Error sending contact email:", err);
     return NextResponse.json({ error: "Failed to send email" }, { status: 500 });

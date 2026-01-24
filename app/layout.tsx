@@ -78,7 +78,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap"
         />
         {/* Preload hero image for faster LCP */}
-        <link rel="preload" as="image" href="/images/photo1.png" imagesrcset="/images/photo1.png" />
+        <link rel="preload" as="image" href="/images/photo1.png" imageSrcSet="/images/photo1.png" />
         {/* Analytics: Prefer Plausible; fallback to GA4; else stub */}
         {process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN ? (
           <Script

@@ -28,10 +28,10 @@ export default function ResumeSectionFragmented({
      "/images/photo4.jpg",
   ];
   const imageQuotes = [
-    "Elegance in pixels, logic in lines.",
-    "Shipping calm UI and cleaner commits.",
-    "Design that listens. Code that behaves.",
-    "Less drama. More semantic commas."
+     "I build things people don’t have to think twice about.",
+  "Curious by nature. Precise by habit.",
+  "I care how it feels — and how it fails.",
+  "Thoughtful UI. Reliable systems."
   ];
   const images = photoUrl
     ? [photoUrl, ...fallbackImages.filter((p) => p !== photoUrl)]
@@ -160,24 +160,27 @@ export default function ResumeSectionFragmented({
                 }}
               >
                 <p className="mb-4">
-                  My design journey started back in school not with wireframes,
-                  but by renaming flights to “Sanjay Airlines” and Photoshopping
-                  Obama watching me give interviews on TV 😄. It was all fun and
-                  delusion. But somewhere between that and making posters for
-                  college events,&nbsp;
+                  My coding journey started like most people's: with curiosity
+                  and a lot of Google searches 😄. But somewhere between building
+                  my first HTML page and shipping production apps, I realized I
+                  genuinely loved creating things that people actually use.
+                  There's something magical about taking an idea and turning it
+                  into a live application that solves&nbsp;
                   <strong className="text-white">
-                    I realized I genuinely loved designing things.
+                    real problems.
                   </strong>
                 </p>
 
                 <p>
-                  That curiosity took off. I got my first job (not in design
-                  plot twist), but kept sneaking design into everything until it
-                  became my real role. Then <strong>Gowtham</strong> introduced
-                  me to UI/UX, and <strong>Arun</strong> rewired how I saw
-                  design from pretty screens to problem-solving. Now I craft
-                  products, fix UX messes, and still have fun — just with fewer
-                  world leaders involved 😬.
+                  I've built full-stack applications from scratch — from
+                  BuddyBudget's secure authentication and real-time data syncing,
+                  to Hintly's local AI integration without compromising privacy,
+                  to optimizing this portfolio to hit 98/100 Lighthouse scores.
+                  Along the way, I learned that great code isn't just about
+                  features; it's about accessibility, performance, and user
+                  experience. Now I craft clean, maintainable code and ship
+                  products that work flawlessly — all while still having fun and
+                  learning something new with every project 🚀.
                 </p>
               </div>
             </div>
