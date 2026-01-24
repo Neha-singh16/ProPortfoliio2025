@@ -5,6 +5,7 @@ import React from "react"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  const lastUpdated = new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
 
   const scrollToTop = () => {
     if (typeof window !== "undefined") {
@@ -58,7 +59,8 @@ export default function Footer() {
                     href="/pdf/NehaResumeOct.pdf"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 sm:gap-3 bg-[#8b5cf6] hover:bg-purple-600 text-black px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-sm sm:text-base font-semibold shadow-md"
+                  className="inline-flex items-center gap-2 sm:gap-3 bg-[#8b5cf6] hover:bg-purple-600 text-black px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-sm sm:text-base font-semibold shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  aria-label="Download resume as PDF"
                 >
                   Download Resume
                 </a>
@@ -80,7 +82,8 @@ export default function Footer() {
           <hr className="border-zinc-800 my-6 sm:my-8" />
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4 text-zinc-400 text-xs sm:text-sm">
-            <div>© {currentYear} <span className="text-white font-medium">Neha Singh</span>. All rights reserved.</div>
+            <div>© {currentYear} <span className="text-white font.medium">Neha Singh</span>. All rights reserved.</div>
+            <div className="text-zinc-400">Last updated: <span className="text-white/90">{lastUpdated}</span></div>
             <div className="flex items-center gap-4 sm:gap-6">
               <a href="#" className="hover:underline">Privacy</a>
               <a href="#" className="hover:underline">Terms</a>
