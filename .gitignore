@@ -1,1 +1,22 @@
 node_modules
+package-lock.json
+
+# Next.js build outputs
+.next/
+out/
+
+# Vercel deployment directory
+.vercel/
+
+# Environment files
+.env.local
+.env.*.local
+
+# Logs and debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Misc
+.DS_Store
