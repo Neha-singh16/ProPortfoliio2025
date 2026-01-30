@@ -12,6 +12,12 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
 
+declare global {
+  interface Window {
+    gtag: (command: string, action: string, config?: Record<string, unknown>) => void
+  }
+}
+
 export default function Contact() {
   const [isVisible, setIsVisible] = useState(false)
   const [formData, setFormData] = useState({

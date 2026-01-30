@@ -147,7 +147,7 @@ export default function Skills() {
             </div>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
+          <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 items-start">
             {/* Primary Tech */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -179,7 +179,7 @@ export default function Skills() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/60 p-5 sm:p-6 backdrop-blur-sm"
+              className="relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/60 p-5 sm:p-6 backdrop-blur-sm h-fit self-start"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/14 via-indigo-500/12 to-purple-500/10 opacity-60" aria-hidden></div>
               <div className="absolute inset-px rounded-2xl border border-white/5 opacity-80" aria-hidden></div>
