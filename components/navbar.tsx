@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Code, Mail, User } from "lucide-react"
+import { Code, Mail, User, Trophy } from "lucide-react"
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -44,6 +44,13 @@ export default function Navbar() {
           {/* Right Links - Desktop Only */}
           <div className="hidden lg:flex items-center gap-8 pr-2">
             <Link
+              href="#achievements"
+              className="text-sm font-medium text-zinc-300 hover:text-white transition-colors relative group"
+            >
+              Achievements
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-500 transition-all group-hover:w-full"></span>
+            </Link>
+            <Link
               href="#projects"
               className="text-sm font-medium text-zinc-300 hover:text-white transition-colors relative group"
             >
@@ -63,6 +70,9 @@ export default function Navbar() {
           <div className="lg:hidden flex items-center gap-1 sm:gap-3 text-zinc-300">
             <Link href="#about" aria-label="About" className="p-1 sm:p-1.5 hover:text-white transition-colors hover:bg-white/5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
               <User size={18} className="sm:w-5 sm:h-5" />
+            </Link>
+            <Link href="#achievements" aria-label="Achievements" className="p-1 sm:p-1.5 hover:text-white transition-colors hover:bg-white/5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
+              <Trophy size={18} className="sm:w-5 sm:h-5" />
             </Link>
             <Link href="#projects" aria-label="Projects" className="p-1 sm:p-1.5 hover:text-white transition-colors hover:bg-white/5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
               <Code size={18} className="sm:w-5 sm:h-5" />

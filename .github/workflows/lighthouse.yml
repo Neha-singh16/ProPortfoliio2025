@@ -1,0 +1,71 @@
+name: Lighthouse Performance Audit
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js app
+        run: npm run build
+
+      - name: Start server
+        run: npm start &
+        env:
+          NODE_ENV: production
+
+      - name: Wait for server
+        run: sleep 5
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          configPath: "./lighthouserc.json"
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: Comment PR with results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const results = JSON.parse(fs.readFileSync('./.lighthouseci/lighthouse-results.json', 'utf8'));
+            
+            let comment = '## 🔍 Lighthouse Performance Report\n\n';
+            
+            results.forEach((result, index) => {
+              const { url, scores } = result;
+              comment += `### ${url}\n`;
+              comment += `| Category | Score |\n`;
+              comment += `|----------|-------|\n`;
+              comment += `| Performance | ${(scores.performance * 100).toFixed(0)} |\n`;
+              comment += `| Accessibility | ${(scores.accessibility * 100).toFixed(0)} |\n`;
+              comment += `| Best Practices | ${(scores['best-practices'] * 100).toFixed(0)} |\n`;
+              comment += `| SEO | ${(scores.seo * 100).toFixed(0)} |\n`;
+              comment += `| PWA | ${(scores.pwa * 100).toFixed(0)} |\n\n`;
+            });
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

@@ -17,6 +17,7 @@ export function Hero() {
         <div className="relative z-10 order-2 lg:order-1">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
+            
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm mb-6"

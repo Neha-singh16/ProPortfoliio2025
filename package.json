@@ -6,7 +6,12 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "eslint .",
-    "start": "next start"
+    "start": "next start",
+    "optimize-images": "node scripts/optimize-images.js",
+    "analyze-performance": "node scripts/analyze-performance.js",
+    "test": "vitest",
+    "test:e2e": "playwright test",
+    "lighthouse": "next build && lighthouse http://localhost:3000 --view"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",

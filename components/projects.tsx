@@ -80,19 +80,19 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#0a0a0a] border-t border-zinc-900">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 w-full">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 sm:mb-16 gap-4 sm:gap-6">
+    <section id="projects" className="py-8 sm:py-12 md:py-16 lg:py-20 bg-[#0a0a0a] border-t border-zinc-900">
+      <div className="max-w-6xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 w-full">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-6 sm:mb-8 md:mb-12 gap-3 sm:gap-4 md:gap-6">
           <div>
             <motion.h2
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold font-heading uppercase tracking-tighter text-white"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-heading uppercase tracking-tighter text-white"
             >
               Selected <span className="text-stroke-purple">Works</span>
             </motion.h2>
-            <p className="text-sm sm:text-base text-zinc-400 mt-3 sm:mt-4 max-w-md">
+            <p className="text-xs sm:text-sm md:text-base text-zinc-400 mt-2 sm:mt-3 md:mt-4 max-w-md">
               A collection of projects that showcase my journey in frontend development.
             </p>
           </div>
@@ -105,7 +105,7 @@ export default function Projects() {
           </Button>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-4 lg:gap-4">
           {projects.map((project, index) => (
             <motion.div
               key={index}
@@ -118,7 +118,7 @@ export default function Projects() {
               <Link href={`/projects/${project.slug}`}>
                 <Card className="bg-zinc-900 border-zinc-800 overflow-hidden h-full hover:border-purple-500/50 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-purple-900/10 cursor-pointer">
                 <CardHeader className="p-0">
-                  <div className="w-full aspect-16/10 bg-zinc-800 relative overflow-hidden flex items-center justify-center shrink-0">
+                  <div className="w-full aspect-video sm:aspect-video lg:aspect-video bg-zinc-800 relative overflow-hidden flex items-center justify-center shrink-0">
                     {/* Project Image */}
                     {project.image ? (
                       <div className="absolute inset-0">
@@ -133,7 +133,7 @@ export default function Projects() {
                       </div>
                     ) : (
                       <div className="absolute inset-0 bg-linear-to-tr from-zinc-900 to-zinc-800/50 flex items-center justify-center">
-                        <div className="text-6xl font-bold text-zinc-800 select-none group-hover:text-zinc-700 transition-colors duration-500 font-heading uppercase">
+                        <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-zinc-800 select-none group-hover:text-zinc-700 transition-colors duration-500 font-heading uppercase">
                           {project.title.split(" ")[0]}
                         </div>
                       </div>
@@ -147,12 +147,12 @@ export default function Projects() {
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="p-4 sm:p-6 md:p-8">
-                  <div className="flex justify-between items-start mb-3 sm:mb-4">
-                    <h3 className="text-xl sm:text-2xl font-bold font-heading text-white group-hover:text-purple-400 transition-colors">
+                <CardContent className="p-3 sm:p-4 md:p-4 lg:p-4">
+                  <div className="flex justify-between items-start gap-2 mb-1.5 sm:mb-2 md:mb-2 lg:mb-2">
+                    <h3 className="text-sm sm:text-base md:text-base lg:text-base font-bold font-heading text-white group-hover:text-purple-400 transition-colors line-clamp-2">
                       {project.title}
                     </h3>
-                    <div className="flex gap-2">
+                    <div className="flex gap-1 lg:gap-1 flex-shrink-0">
                       {project.demo && project.demo !== "#" ? (
                         <button
                           onClick={(e) => {
@@ -160,17 +160,17 @@ export default function Projects() {
                             window.open(project.demo as string, "_blank", "noreferrer")
                           }}
                           aria-label={`${project.title} live demo`}
-                          className="h-8 w-8 rounded-full inline-flex items-center justify-center bg-white/6 hover:bg-white/10 text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                          className="h-6 w-6 sm:h-7 sm:w-7 lg:h-7 lg:w-7 rounded-full inline-flex items-center justify-center bg-white/6 hover:bg-white/10 text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                         >
-                          <ExternalLink className="h-4 w-4" />
+                          <ExternalLink className="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-3.5 lg:w-3.5" />
                         </button>
                       ) : (
                         <button
                           disabled
                           aria-hidden
-                          className="h-8 w-8 rounded-full inline-flex items-center justify-center bg-white/2 text-white/40 cursor-not-allowed"
+                          className="h-6 w-6 sm:h-7 sm:w-7 lg:h-7 lg:w-7 rounded-full inline-flex items-center justify-center bg-white/2 text-white/40 cursor-not-allowed"
                         >
-                          <ExternalLink className="h-4 w-4" />
+                          <ExternalLink className="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-3.5 lg:w-3.5" />
                         </button>
                       )}
 
@@ -181,31 +181,31 @@ export default function Projects() {
                             window.open(project.github as string, "_blank", "noreferrer")
                           }}
                           aria-label={`${project.title} source on GitHub`}
-                          className="h-8 w-8 rounded-full inline-flex items-center justify-center bg-white/6 hover:bg-white/10 text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                          className="h-6 w-6 sm:h-7 sm:w-7 lg:h-7 lg:w-7 rounded-full inline-flex items-center justify-center bg-white/6 hover:bg-white/10 text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                         >
-                          <Github className="h-4 w-4" />
+                          <Github className="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-3.5 lg:w-3.5" />
                         </button>
                       ) : (
                         <button
                           disabled
                           aria-hidden
-                          className="h-8 w-8 rounded-full inline-flex items-center justify-center bg-white/2 text-white/40 cursor-not-allowed"
+                          className="h-6 w-6 sm:h-7 sm:w-7 lg:h-7 lg:w-7 rounded-full inline-flex items-center justify-center bg-white/2 text-white/40 cursor-not-allowed"
                         >
-                          <Github className="h-4 w-4" />
+                          <Github className="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-3.5 lg:w-3.5" />
                         </button>
                       )}
                     </div>
                   </div>
 
-                  <p className="text-sm sm:text-base text-zinc-300 mb-4 sm:mb-6 leading-relaxed max-w-[70ch]">{project.description}</p>
+                  <p className="text-xs sm:text-xs md:text-sm lg:text-sm text-zinc-300 mb-1.5 sm:mb-2 leading-relaxed line-clamp-2 lg:line-clamp-2">{project.description}</p>
 
                   {project.impact && (
-                    <p className="text-xs sm:text-sm text-purple-400 font-medium mb-3 sm:mb-4 italic flex items-center gap-2">
-                      <span className="text-lg">✨</span> {project.impact}
+                    <p className="text-xs text-purple-400 font-medium mb-2 sm:mb-3 italic flex items-center gap-1.5">
+                      <span className="text-sm">✨</span> <span className="line-clamp-1">{project.impact}</span>
                     </p>
                   )}
 
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-auto">
+                  <div className="flex flex-wrap gap-1.5 mt-auto">
                     {project.tags.map((tag) => (
                       <Badge
                         key={tag}

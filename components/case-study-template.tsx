@@ -80,13 +80,13 @@ export function CaseStudyTemplate({ data }: { data: CaseStudyData }) {
           className="mb-12 sm:mb-16 rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800"
         >
           {data.gif ? (
-            <img
+            <video
               src={data.gif}
-              alt={`${data.title} demo`}
               className="w-full h-auto object-cover"
               autoPlay
               loop
               muted
+              playsInline
             />
           ) : (
             <img src={data.image} alt={data.title} className="w-full h-auto object-cover" />

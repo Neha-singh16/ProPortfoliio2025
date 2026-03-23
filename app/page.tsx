@@ -5,6 +5,7 @@ import Projects from "@/components/projects"
 import Contact from "@/components/contact"
 import Footer from "@/components/footer"
 import ResumeSection from "@/components/resume-section"
+import Achievements from "@/components/achievements"
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <Hero />
       <About />
       <ResumeSection />
+      <Achievements />
       <Skills />
       <Projects />
       <Contact />
