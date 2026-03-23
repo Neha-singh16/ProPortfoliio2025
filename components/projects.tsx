@@ -15,7 +15,7 @@ const projects = [
       "A full-stack budget management app. Built secure role-based auth with JWT & HTTP-only cookies. Features real-time financial tracking with Chart.js visualization and REST APIs for CRUD operations.",
     impact: "Real-time financial tracking with 100% secure JWT auth",
     tags: ["React", "Node.js", "Express", "MongoDB", "Chart.js"],
-    github: "https://github.com/Neha-singh16/Budget-backend",
+    github: "https://github.com/Neha-singh16/BudgetBuddy-Frontend",
     demo: "https://budget-buddy-frontend-two.vercel.app/",
     featured: true,
     year: "2025",
