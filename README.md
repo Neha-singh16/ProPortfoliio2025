@@ -6,6 +6,7 @@ This is a personal portfolio site built with Next.js and Tailwind CSS. It includ
 
 - Responsive portfolio layout
 - Downloadable resume (`public/pdf/NehaResume_sept.pdf`)
+
 - Contact form that posts to a server API (`/api/contact`)
 - Framer Motion animations and simple UI components
 
