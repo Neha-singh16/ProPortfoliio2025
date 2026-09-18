@@ -107,7 +107,7 @@ export function Hero() {
               className="rounded-full px-6 sm:px-8 text-sm sm:text-base border-zinc-700 text-white hover:bg-zinc-900 hover:text-white bg-transparent"
               aria-label="Download Resume"
             >
-              <a href="/pdf/NehaResumeOct.pdf" download="NehaResumeOct.pdf">
+              <a href="/pdf/NehaResume_sept.pdf" download="NehaResume_sept.pdf">
                 Download Resume
               </a>
             </Button>

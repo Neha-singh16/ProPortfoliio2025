@@ -19,7 +19,7 @@ export default function ResumeSectionFragmented({
   role = "Full Stack Developer",
   location = "Delhi, India",
   tools = [],
-  resumeUrl = "/pdf/NehaResumeOct.pdf",
+  resumeUrl = "/pdf/NehaResume_sept.pdf",
 }: ResumeSectionProps) {
   const fallbackImages = [
     "/images/photo1.png",

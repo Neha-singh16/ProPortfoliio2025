@@ -59,7 +59,7 @@ export default function Footer() {
 
               <div className="flex items-center gap-2 sm:gap-3">
                 <a
-                    href="/pdf/NehaResumeOct.pdf"
+                    href="/pdf/NehaResume_sept.pdf"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 sm:gap-3 bg-[#8b5cf6] hover:bg-purple-600 text-black px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-sm sm:text-base font-semibold shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
