@@ -6,9 +6,14 @@ import { Card, CardContent } from "@/components/ui/card"
 
 export function About() {
   return (
-    <section id="about" className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#0a0a0a] relative">
+    <section
+      id="about"
+      className="py-12 sm:py-16 md:py-20 lg:py-24 bg-[#0a0a0a] relative"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 w-full">
         <div className="flex flex-col md:flex-row gap-8 sm:gap-12 md:gap-20 items-start">
+
+          {/* Left Content */}
           <div className="md:w-1/3 md:sticky md:top-24">
             <motion.h2
               initial={{ opacity: 0, x: -20 }}
@@ -18,21 +23,31 @@ export function About() {
             >
               About <span className="text-zinc-600">Me</span>
             </motion.h2>
+
             <motion.div
               initial={{ width: 0 }}
               whileInView={{ width: "60px" }}
               viewport={{ once: true }}
               className="h-1 bg-purple-500 mb-4 sm:mb-6"
             />
+
             <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-4 sm:mb-6">
-              I'm a focused and enthusiastic developer with a keen eye for detail. I love creating things that live on
-              the internet, whether that be websites, applications, or anything in between.
+              I&apos;m a backend-focused software developer who enjoys building
+              reliable APIs, database-driven applications, and scalable backend
+              workflows. I work primarily with Node.js, Express.js, SQL,
+              Sequelize, Redis, and modern backend tools, while also building
+              full-stack applications with React.
             </p>
-            <div className="font-script text-2xl sm:text-3xl text-purple-400 -rotate-6 inline-block">Always learning!</div>
+
+            <div className="font-script text-2xl sm:text-3xl text-purple-400 -rotate-6 inline-block">
+              Building. Learning. Improving.
+            </div>
           </div>
 
           {/* Content Cards */}
           <div className="md:w-2/3 grid gap-4 sm:gap-6">
+
+            {/* Who I Am */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -44,18 +59,27 @@ export function About() {
                   <div className="bg-zinc-800 p-2.5 sm:p-3 rounded-lg h-fit shrink-0">
                     <User className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />
                   </div>
+
                   <div>
-                    <h3 className="text-lg sm:text-xl font-bold font-heading uppercase mb-2">Who I Am</h3>
+                    <h3 className="text-lg sm:text-xl font-bold font-heading uppercase mb-2">
+                      Who I Am
+                    </h3>
+
                     <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
-                      My name is <strong>Neha Singh</strong>. I am currently pursuing my BCA degree. I have a strong
-                      passion for frontend development and UI design. I enjoy turning complex problems into simple,
-                      beautiful and intuitive designs.
+                      I&apos;m <strong>Neha Singh</strong>, a BCA graduate and
+                      backend-focused developer. I enjoy solving backend
+                      problems involving API design, authentication,
+                      databases, asynchronous processing, payments, and
+                      real-time communication. I also have hands-on experience
+                      integrating React frontends with backend services to
+                      build complete full-stack applications.
                     </p>
                   </div>
                 </CardContent>
               </Card>
             </motion.div>
 
+            {/* Education */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -67,19 +91,32 @@ export function About() {
                   <div className="bg-zinc-800 p-2.5 sm:p-3 rounded-lg h-fit shrink-0">
                     <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />
                   </div>
+
                   <div>
-                    <h3 className="text-lg sm:text-xl font-bold font-heading uppercase mb-2">Education</h3>
-                    <p className="text-sm sm:text-base text-white font-medium">Bachelor of Computer Applications (BCA)</p>
-                    <p className="text-xs sm:text-sm text-zinc-400 mb-2">Expected Graduation: 2026</p>
+                    <h3 className="text-lg sm:text-xl font-bold font-heading uppercase mb-2">
+                      Education
+                    </h3>
+
+                    <p className="text-sm sm:text-base text-white font-medium">
+                      Bachelor of Computer Applications (BCA)
+                    </p>
+
+                    <p className="text-xs sm:text-sm text-zinc-400 mb-2">
+                      Delhi Skill and Entrepreneurship University · 2026
+                    </p>
+
                     <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed">
-                      Relevant coursework: Web Development, Data Structures, Database Management Systems, Object
-                      Oriented Programming.
+                      Graduated with a 9.50 / 10.00 CGPA and secured the Branch
+                      Topper position. Strong foundation in Data Structures,
+                      Database Management Systems, Object-Oriented Programming,
+                      and Web Development.
                     </p>
                   </div>
                 </CardContent>
               </Card>
             </motion.div>
 
+            {/* Goal */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -91,16 +128,26 @@ export function About() {
                   <div className="bg-zinc-800 p-2.5 sm:p-3 rounded-lg h-fit shrink-0">
                     <Code className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
                   </div>
+
                   <div>
-                    <h3 className="text-lg sm:text-xl font-bold font-heading uppercase mb-2">My Goal</h3>
+                    <h3 className="text-lg sm:text-xl font-bold font-heading uppercase mb-2">
+                      What I&apos;m Building
+                    </h3>
+
                     <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
-                      To join a creative team of developers where I can contribute to exciting projects while continuing
-                      to grow my skills in the JavaScript ecosystem.
+                      I&apos;m focused on becoming a strong backend engineer by
+                      building production-oriented systems and deepening my
+                      understanding of APIs, SQL, authentication, caching,
+                      background jobs, system design, and scalability. My goal
+                      is to build software that is not only functional, but
+                      reliable, maintainable, and designed to handle real-world
+                      workflows.
                     </p>
                   </div>
                 </CardContent>
               </Card>
             </motion.div>
+
           </div>
         </div>
       </div>

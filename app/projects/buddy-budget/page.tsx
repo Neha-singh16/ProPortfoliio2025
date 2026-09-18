@@ -1,59 +1,71 @@
 import { CaseStudyTemplate } from "@/components/case-study-template"
 
-const buddyBudgetData = {
-  title: "BuddyBudget",
-  subtitle: "Full-stack budget management app with secure authentication and real-time financial tracking",
+const heraPheriData = {
+  title: "HeraPheri",
+  subtitle:
+    "Two-sided task marketplace with secure authentication, payments, real-time updates, and asynchronous backend processing",
+
   problem: {
     title: "Problem",
     content: [
-      "Personal finance management was fragmented across multiple apps and spreadsheets, making it difficult to track expenses in real-time. Users needed a centralized, secure platform where they could log transactions, categorize spending, and visualize financial patterns without worrying about data privacy.",
-      "Existing budget apps either lacked security features or were overly complicated for casual users. There was no simple, reliable solution that combined ease-of-use with enterprise-grade authentication.",
+      "People who need tasks completed and people willing to execute those tasks often lack a structured platform for managing the complete workflow. Task creation, assignment, execution, proof submission, approval, disputes, and payment can easily become fragmented across different tools.",
+      "HeraPheri was built to bring this workflow into a single platform with clear roles, controlled task states, secure transactions, and real-time communication between participants.",
     ],
   },
+
   role: {
     title: "My Role",
     content:
-      "Full-stack developer responsible for architecture, backend API development, authentication system design, and frontend implementation. Designed the secure authentication flow and ensured real-time data synchronization across the application.",
+      "Full-stack developer with a strong focus on backend architecture. Designed and implemented the REST API layer, authentication and authorization, database models and relationships, task lifecycle, payment workflows, asynchronous jobs, real-time events, notifications, and the React frontend integration.",
   },
+
   techStack: [
-    "React",
     "Node.js",
-    "Express",
-    "MongoDB",
-    "Chart.js",
+    "Express.js",
+    "React.js",
+    "MySQL",
+    "Sequelize",
+    "Redis",
+    "BullMQ",
+    "Socket.IO",
     "JWT",
-    "HTTP-Only Cookies",
-    "Tailwind CSS",
+    "Razorpay",
   ],
+
   challenge: {
     title: "Key Challenge",
     content: [
-      "Implementing secure role-based access control (RBAC) while maintaining a smooth user experience. The challenge was balancing security (JWT tokens, HTTP-only cookies) with practicality (session management, token refresh).",
-      "Additionally, real-time financial data visualization required efficient querying and aggregation of potentially large datasets without compromising performance.",
+      "The main challenge was coordinating a multi-step task lifecycle involving Requesters and Executors while keeping authorization, task state, payment state, and notifications consistent.",
+      "Another challenge was handling operations that should not block API requests. Background jobs were separated from the main request flow using Redis and BullMQ, while Socket.IO was used to deliver real-time updates to connected users.",
     ],
   },
+
   solution: {
     title: "Solution",
     content: [
-      "Designed a JWT-based authentication system with HTTP-only cookies to prevent XSS attacks. Implemented role-based access control (RBAC) with separate admin and user roles, allowing scalability for future multi-user features.",
-      "Built RESTful APIs for CRUD operations on transactions, categories, and budgets. Integrated Chart.js for real-time financial visualization, enabling users to see income vs. expense trends at a glance.",
-      "Used MongoDB aggregation pipelines to efficiently calculate spending summaries and trends, reducing database load and improving query performance.",
+      "Designed RESTful APIs with Express.js and Sequelize using modular controllers, services, routes, middleware, validation, database transactions, and migrations.",
+      "Implemented JWT-based authentication with access and refresh token flows and role-based authorization so Requester and Executor actions remain isolated to their permitted workflows.",
+      "Integrated Redis and BullMQ for asynchronous background processing and Socket.IO for real-time task and notification updates.",
+      "Integrated Razorpay payment workflows including order creation, payment verification, webhook handling, refunds, and payment-state tracking.",
+      "Added backend security measures including request validation, CORS configuration, Helmet, and rate limiting.",
     ],
   },
+
   impact: {
     title: "Impact",
     content: [
-      "✅ **100% Secure Authentication** – JWT + HTTP-only cookies eliminate XSS vulnerabilities; no stored tokens in localStorage.",
-      "✅ **Real-time Updates** – Transactions sync instantly; users see updated charts and balances without page refresh.",
-      "✅ **Production-Ready API** – RESTful endpoints with proper error handling, input validation, and rate limiting.",
-      "✅ **Measurable Outcome** – Deployed on Vercel with 5+ test users actively tracking budgets; zero authentication failures.",
+      "End-to-end task workflow from creation and funding through assignment, execution, proof submission, approval, or dispute.",
+      "Asynchronous background processing keeps longer-running operations outside the critical API request path.",
+      "Real-time communication keeps users informed about important task and notification events.",
+      "Payment workflows are connected to the application lifecycle rather than being handled as a separate manual process.",
     ],
   },
-  github: "https://github.com/Neha-singh16/Budget-backend",
-  demo: "https://budget-buddy-frontend-two.vercel.app/",
-  image: "/images/thumbline1.png",
+
+  github: "https://github.com/Neha-singh16/HeraPheri",
+  demo: "#",
+  image: "/images/herapheri.png",
 }
 
-export default function BuddyBudgetCaseStudy() {
-  return <CaseStudyTemplate data={buddyBudgetData} />
+export default function HeraPheriCaseStudy() {
+  return <CaseStudyTemplate data={heraPheriData} />
 }

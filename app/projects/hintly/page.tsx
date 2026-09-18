@@ -1,51 +1,71 @@
 import { CaseStudyTemplate } from "@/components/case-study-template"
 
-const hintlyData = {
-  title: "Hintly",
-  subtitle: "Privacy-first Chrome extension delivering AI-powered coding hints without sending data to external servers",
+const jobApplicationTrackerData = {
+  title: "Job Application Tracker",
+  subtitle:
+    "Backend-focused job application management platform with searchable APIs, file uploads, reminders, and application tracking",
+
   problem: {
     title: "Problem",
     content: [
-      "Competitive programmers and LeetCode users often rely on external AI services (ChatGPT, Claude) for hints when stuck on problems. This creates privacy concerns: code snippets are sent to third-party servers, and users lose focus switching between tabs.",
-      "Existing hint services either expose code to external APIs or are slow due to network latency. Students needed hints instantly, locally, and securely without compromising their learning progress or privacy.",
+      "Job seekers often manage applications across spreadsheets, emails, browser tabs, and notes. This makes it difficult to keep track of application stages, company information, job details, follow-ups, documents, and upcoming reminders.",
+      "The goal was to build a centralized system where users could manage the complete application lifecycle and quickly retrieve applications using search, filtering, sorting, and pagination.",
     ],
   },
+
   role: {
     title: "My Role",
     content:
-      "Full-stack extension developer responsible for Chrome extension architecture, AI integration with Ollama, content extraction logic, and UI/UX design. Handled context injection, API communication, and analytics integration.",
+      "Full-stack developer with primary responsibility for backend API development. Designed the database models and relationships, authentication flow, application and company APIs, filtering and pagination logic, attachment handling, reminder processing, and integration with the React frontend.",
   },
-  techStack: ["React", "TypeScript", "Chrome Extension API", "Ollama AI", "Tailwind CSS", "Local Storage API"],
+
+  techStack: [
+    "Node.js",
+    "Express.js",
+    "React.js",
+    "MySQL",
+    "Sequelize",
+    "JWT",
+    "Multer",
+    "Node-Cron",
+    "Axios",
+  ],
+
   challenge: {
     title: "Key Challenge",
     content: [
-      "Integrating a local AI model (Ollama) with a Chrome extension while maintaining performance and reliability. The challenge was extracting problem context from LeetCode/GeeksforGeeks without breaking when page structures changed.",
-      "Another challenge was ensuring the extension doesn't interfere with the user's browsing experience—hints should load instantly without lag, and the AI processing shouldn't block the UI.",
+      "The application needed to support flexible searching and filtering without making the API difficult to maintain. Users can search across applications and combine filters such as status, company, and date ranges with pagination and sorting.",
+      "Another challenge was handling reminders and uploaded attachments as part of the same application workflow while keeping the backend modular and user-specific.",
     ],
   },
+
   solution: {
     title: "Solution",
     content: [
-      "Built a Chrome extension with content scripts that safely inject hint-request buttons into LeetCode and GeeksforGeeks problem pages. Used DOM parsing to extract problem statements and code context accurately.",
-      "Integrated Ollama AI running locally to generate hints. When a user clicks 'Get Hint', the extension sends the problem context to localhost:11434 (Ollama default) and streams responses back to the UI in real-time.",
-      "Implemented progress tracking analytics using localStorage and optional event logging to help users monitor their problem-solving patterns without any external data collection.",
+      "Built RESTful APIs with Node.js and Express.js using Sequelize for database access and relationships between users, applications, companies, job listings, attachments, and reminders.",
+      "Implemented JWT authentication and user-specific data access so application records are isolated between users.",
+      "Added search, filtering, sorting, pagination, and date-based querying to allow users to efficiently retrieve application records.",
+      "Implemented attachment uploads using Multer and connected uploaded files to the corresponding job application records.",
+      "Added scheduled reminder processing with Node-Cron to identify pending reminders and trigger email notifications for upcoming follow-ups.",
     ],
   },
+
   impact: {
     title: "Impact",
     content: [
-      "✅ **0ms External Latency** – All AI processing happens locally; no network round-trips to external servers.",
-      "✅ **100% Privacy** – Code never leaves the user's machine; Ollama processes everything on-device.",
-      "✅ **Instant Hints** – Users get contextual hints within 1-2 seconds using local Ollama model.",
-      "✅ **Improved Focus** – No tab-switching needed; hints appear inline on the problem page.",
-      "✅ **Production Deployed** – Available on GitHub; tested with 50+ beta users reporting 95%+ satisfaction.",
+      "Centralized job application, company, and job listing management in one platform.",
+      "Search, filtering, sorting, and pagination make large application datasets easier to manage.",
+      "Attachment support keeps resumes, documents, and related files associated with applications.",
+      "Automated reminders reduce the need to manually track application follow-ups.",
     ],
   },
-  github: "https://github.com/Neha-singh16/Hintly",
+
+  github:
+    "https://github.com/Neha-singh16/SharpenerDev/tree/main/jobApplicationTracker",
   demo: "#",
-  image: "/images/thumbline2.png",
+  image: "/images/job-tracker.png",
 }
 
-export default function HintlyCaseStudy() {
-  return <CaseStudyTemplate data={hintlyData} />
+export default function JobApplicationTrackerCaseStudy() {
+  return <CaseStudyTemplate data={jobApplicationTrackerData} />
 }

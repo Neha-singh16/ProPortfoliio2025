@@ -1,0 +1,1 @@
+export { default } from "@/app/projects/buddy-budget/page"

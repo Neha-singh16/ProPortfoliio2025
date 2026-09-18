@@ -25,13 +25,13 @@ export default function ResumeSectionFragmented({
     "/images/photo1.png",
     "/images/photo2.png",
     "/images/photo3.png",
-     "/images/photo4.jpg",
+    "/images/photo4.jpg",
   ];
   const imageQuotes = [
-     "I build things people don’t have to think twice about.",
-  "Curious by nature. Precise by habit.",
-  "I care how it feels — and how it fails.",
-  "Thoughtful UI. Reliable systems."
+    "I build things people don’t have to think twice about.",
+    "Curious by nature. Precise by habit.",
+    "I care how it feels — and how it fails.",
+    "Thoughtful UI. Reliable systems.",
   ];
   const images = photoUrl
     ? [photoUrl, ...fallbackImages.filter((p) => p !== photoUrl)]
@@ -54,21 +54,66 @@ export default function ResumeSectionFragmented({
   }
 
   const defaultTools = [
-    { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-    { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
-    { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
-    { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-    { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
-    { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
-    { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
-    { name: "Express", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
-    { name: "C++", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" },
-    { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
-    { name: "Replit", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/replit/replit-original.svg" },
-    { name: "Canva", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg" },
-    { name: "Figma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
-    { name: "Postman", icon: "https://www.svgrepo.com/show/354202/postman-icon.svg" },
-    { name: "VS Code", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
+    {
+      name: "React",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    },
+    {
+      name: "Next.js",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+    },
+    {
+      name: "TypeScript",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+    },
+    {
+      name: "Node.js",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    },
+    {
+      name: "MongoDB",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+    },
+    {
+      name: "MySQL",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+    },
+    {
+      name: "Tailwind CSS",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+    },
+    {
+      name: "Express",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+    },
+    {
+      name: "C++",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
+    },
+    {
+      name: "Git",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+    },
+    {
+      name: "Replit",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/replit/replit-original.svg",
+    },
+    {
+      name: "Canva",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg",
+    },
+    {
+      name: "Figma",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+    },
+    {
+      name: "Postman",
+      icon: "https://www.svgrepo.com/show/354202/postman-icon.svg",
+    },
+    {
+      name: "VS Code",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
+    },
   ];
   const itemList = tools && tools.length ? tools : defaultTools;
 
@@ -77,7 +122,10 @@ export default function ResumeSectionFragmented({
 
   return (
     // remove custom bg so it matches main layout background
-    <section id="resume" className="min-h-screen px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20 text-white">
+    <section
+      id="resume"
+      className="min-h-screen px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20 text-white"
+    >
       <div className="max-w-[1240px] mx-auto">
         {/* ===== HERO: ME, MYSELF + arrow + copy ===== */}
         <div className="mb-10 sm:mb-14 lg:mb-20">
@@ -85,26 +133,12 @@ export default function ResumeSectionFragmented({
             {/* LEFT: big heading + animated arrow (similar to reference) */}
             <div className="flex lg:block">
               <div className="inline-flex items-center lg:items-start gap-6">
-                {/* <h1
-                  aria-hidden
-                  className="font-black uppercase tracking-tight text-white"
-                  style={{
-                    fontSize: "clamp(3.5rem, 7vw, 5.5rem)",
-                    lineHeight: 0.9,
-                    letterSpacing: "-0.04em",
-                    fontFamily:
-                      '"SF Pro Display","Poppins","Inter","system-ui",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif',
-                  }}
-                >
-                  <span className="block">ME,</span>
-                  <span className="block">MYSELF</span>
-                </h1> */}
                 <h1
                   aria-hidden
                   className="font-black uppercase tracking-tight text-white"
                   style={{
                     fontSize: "clamp(3.5rem, 7vw, 5.5rem)",
-                 
+
                     lineHeight: 0.9,
                     letterSpacing: "-0.04em",
                     fontFamily:
@@ -151,7 +185,6 @@ export default function ResumeSectionFragmented({
             <div className="relative z-10">
               <div
                 className="max-w-[640px] text-gray-300"
-                // style={{ fontSize: 18, lineHeight: "32px" }}
                 style={{
                   fontSize: 18,
                   lineHeight: "32px",
@@ -160,27 +193,26 @@ export default function ResumeSectionFragmented({
                 }}
               >
                 <p className="mb-4">
-                  My coding journey started like most people's: with curiosity
-                  and a lot of Google searches 😄. But somewhere between building
-                  my first HTML page and shipping production apps, I realized I
-                  genuinely loved creating things that people actually use.
-                  There's something magical about taking an idea and turning it
-                  into a live application that solves&nbsp;
-                  <strong className="text-white">
-                    real problems.
-                  </strong>
+                  I started coding out of curiosity, mostly figuring things out
+                  one problem and one Google search at a time. Over time, that
+                  curiosity turned into a real interest in building software —
+                  especially understanding what happens behind the interface
+                  when a user clicks a button, sends a request, or creates
+                  something in an application.
                 </p>
 
                 <p>
-                  I've built full-stack applications from scratch — from
-                  BuddyBudget's secure authentication and real-time data syncing,
-                  to Hintly's local AI integration without compromising privacy,
-                  to optimizing this portfolio to hit 98/100 Lighthouse scores.
-                  Along the way, I learned that great code isn't just about
-                  features; it's about accessibility, performance, and user
-                  experience. Now I craft clean, maintainable code and ship
-                  products that work flawlessly — all while still having fun and
-                  learning something new with every project 🚀.
+                  Most of my recent work has been focused on{" "}
+                  <strong className="text-white">backend development</strong>.
+                  I've built REST APIs with Node.js and Express, worked with
+                  MySQL and Sequelize, implemented JWT authentication and
+                  authorization, and explored Redis, BullMQ, Socket.IO,
+                  payments, webhooks, and background jobs through projects like
+                  HeraPheri and Job Application Tracker. I also build the React
+                  side of my applications, so I understand how the frontend and
+                  backend fit together. I'm still learning, breaking things,
+                  debugging them, and getting better with every project — which
+                  is honestly the part of development I enjoy most.
                 </p>
               </div>
             </div>
@@ -268,20 +300,20 @@ export default function ResumeSectionFragmented({
                       <motion.div
                         key={i}
                         className="flex items-center justify-center p-2 sm:p-3 rounded-lg bg-[#151515]/50 border border-gray-800/50 backdrop-blur-sm min-w-12 min-h-12 sm:min-w-16 sm:min-h-16"
-                        whileHover={{ 
+                        whileHover={{
                           scale: 1.1,
                           borderColor: "rgba(168, 85, 247, 0.4)",
                           backgroundColor: "rgba(21, 21, 21, 0.8)",
-                          transition: { duration: 0.2 }
+                          transition: { duration: 0.2 },
                         }}
                         title={t.name}
                       >
                         {t.icon ? (
-                          <img 
-                            src={t.icon} 
+                          <img
+                            src={t.icon}
                             alt={t.name}
                             className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
-                            style={{ filter: 'brightness(0.9)' }}
+                            style={{ filter: "brightness(0.9)" }}
                           />
                         ) : (
                           <span className="text-sm font-medium text-gray-300">
